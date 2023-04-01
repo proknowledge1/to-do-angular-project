@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Todo List App</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+}
+h1 {
+text-align: center;
+margin: 20px 0;
+}
+form {
+display: flex;
+align-items: center;
+margin-bottom: 20px;
+}
+form input[type="text"] {
+flex: 1;
+padding: 10px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+}
+form button {
+margin-left: 10px;
+padding: 10px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+background-color: #4CAF50;
+color: #fff;
+cursor: pointer;
+}
+ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+li {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 10px;
+font-size: 16px;
+border-bottom: 1px solid #ddd;
+}
+li:last-child {
+border-bottom: none;
+}
+li input[type="text"] {
+flex: 1;
+padding: 10px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+}
+li button {
+margin-left: 10px;
+padding: 10px;
+font-size: 16px;
+border: none;
+border-radius: 5px;
+background-color: #f44336;
+color: #fff;
+cursor: pointer;
+}
+li button.edit {
+background-color: #2196F3;
+}
+li button.save {
+background-color: #4CAF50;
+}
+.completed {
+text-decoration: line-through;
+color: #999;
+}
+</style>
+</head>
+<body ng-app="myTodoListApp">
+<div ng-controller="todoController">
+<h1>My Todo List App</h1>
+<form ng-submit="addTodo()">
+<input type="text" placeholder="Add a new todo item"
+ng-model="newTodoText">
+<button type="submit">Add</button>
+</form>
+<ul>
+<li ng-repeat="todo in todos" ng-class="{completed: todo.done, editing:
+todo.editing}">
+<input type="checkbox" ng-model="todo.done">
+<span ng-hide="todo.editing" ng-class="{completed: todo.done}">{{
+todo.text }}</span>
+<input type="text" ng-show="todo.editing" ng-model="todo.updatedText">
+<button class="edit" ng-hide="todo.editing"
+ng-click="editTodo(todo)">Edit</button>
+<button class="save" ng-show="todo.editing"
+ng-click="updateTodo(todo)">Save</button>
+<button confirm-click="Are you sure you want to delete this item?"
+ng-click="todos.splice($index, 1)">Delete</button>
+</li>
+</ul>
+<button confirm-click="Are you sure you want to remove all completed items?"
+ng-click="removeCompleted()">Remove completed items</button>
+<div ng-show="showNotification" class="notification">
+{{notificationMessage}}
+</div>
+</div>
+<script
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
